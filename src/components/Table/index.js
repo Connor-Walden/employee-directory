@@ -6,20 +6,22 @@ function Table(props) {
         <tr>
           <th scope="col">#</th>
           <th scope="col">Gender</th>
-          <th scope="col">Name</th>
+          <th scope="col"><button onClick={() => props.sortData()}>Name</button></th>
           <th scope="col">Email</th>
-          <th scope="col">Date of birth</th>
+          <th scope="col">Age</th>
         </tr>
       </thead>
       <tbody>
-        {props.data ? props.data.map((item, idx) => {
-          return (<tr>
-            <td>{idx + 1}</td>
-            <td>{item.gender}</td>
-            <td>{item.name}</td>
-            <td>{item.email}</td>
-            <td>{item.dob}</td>
-          </tr>)}) : ""}
+        {props.data.map((item, idx) => {
+          return (
+            <tr>
+              <td>{idx + 1}</td>
+              <td>{item.gender}</td>
+              <td>{item.name.first + " " + item.name.last}</td>
+              <td>{item.email}</td>
+              <td>{item.dob.age}</td>
+            </tr>
+          )})}
       </tbody>
     </table>
   );

@@ -7,15 +7,31 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [userInput, setUserInput] = useState("");
-  const [res, setRes] = useState();
+  const [res, setRes] = useState([]);
+  const [sorted, setSorted] = useState(false);
 
   const handleInputChange = event => setUserInput(event.target.value);
 
   useEffect(() => {
     API.search()
-      .then(res => setRes(res.data.results))
+      .then(res => {
+        setRes(res.data.results);
+        console.log(res.data.results);
+      })
       .catch(err => console.log(err));
   }, []);
+
+  const sortData = () => {
+    setSorted(true);
+  }
+
+  const orderData = () => {
+    const data = res.filter((item) => item.name.first.toLowerCase().includes(userInput.toLowerCase()));
+  
+    if(sorted) data.sort();
+
+    return data;
+  };
   
   return (
     <div className="App">
@@ -24,8 +40,7 @@ function App() {
         <br />
         <SearchForm userInput={userInput} handleInputChange={event => handleInputChange(event)}/>
         <br />
-        {console.log(res)}
-        <Table data={res} />
+        <Table data={orderData()} sortData={() => sortData()} />
       </div>
     </div>
   );

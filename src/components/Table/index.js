@@ -6,7 +6,7 @@ function Table(props) {
         <tr>
           <th scope="col">#</th>
           <th scope="col">Gender</th>
-          <th scope="col"><button onClick={() => props.sortData()}>Name</button></th>
+          <th scope="col"onClick={() => props.sortData()}>Name</th>
           <th scope="col">Email</th>
           <th scope="col">Age</th>
         </tr>

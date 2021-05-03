@@ -16,21 +16,24 @@ function App() {
     API.search()
       .then(res => {
         setRes(res.data.results);
-        console.log(res.data.results);
       })
       .catch(err => console.log(err));
   }, []);
 
   const sortData = () => {
-    setSorted(true);
+    setSorted(!sorted);
   }
 
   const orderData = () => {
     const data = res.filter((item) => item.name.first.toLowerCase().includes(userInput.toLowerCase()));
   
-    if(sorted) data.sort();
+    let sortedData = [...data].sort(function (x, y) {
+      let a = x.name.first.toUpperCase();
+      let b = y.name.first.toUpperCase();
+      return a == b ? 0 : a > b ? 1 : -1; 
+    });
 
-    return data;
+    return sorted ? sortedData : data;
   };
   
   return (
